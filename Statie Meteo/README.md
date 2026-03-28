@@ -1,6 +1,6 @@
 # Interactive Weather Station with Arduino Uno R3 🌤️
 
-![Weather Station Hero](images/20260328_154928.jpg)
+![Weather Station Hero](images/image_5.jpg)
 
 This project represents a smart weather station built on the Arduino Uno platform, developed using **PlatformIO**. The system reads real-time environmental data, displays dynamic animations on an OLED screen, and provides a live, non-blocking dashboard via the Serial Monitor.
 
@@ -16,7 +16,7 @@ This project represents a smart weather station built on the Arduino Uno platfor
 
 The following image shows a close-up of the OLED screen, displaying the current sensor readings (Temperature, Humidity, Light Intensity) alongside the active dynamic animation:
 
-![OLED UI Close-up](images/20260328_155010.jpg)
+![OLED UI Close-up](images/image_6.jpg)
 
 ---
 
@@ -24,7 +24,7 @@ The following image shows a close-up of the OLED screen, displaying the current 
 
 The station is fully assembled on a breadboard. The picture below illustrates the component layout and wiring (top-down view):
 
-![Wiring Top-Down](images/20260328_155033.jpg)
+![Wiring Top-Down](images/image_7.jpg)
 
 | Module | Module Pins | Arduino Uno Connection | Role |
 | :--- | :--- | :--- | :--- |
