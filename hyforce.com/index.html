@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HYFORCE</title>
+
+<link rel="icon" type="image/png" href="hyforce-logo.png">
+<link rel="stylesheet" href="style.main.css">
+
+<style>
+  :root {
+    --cyan: #00f0ff;
+    --magenta: #a855f7;
+    --dark-bg: #05070c;
+    --txt: #e2e8f0;
+    --mut: #818cf8;
+  }
+
+  body.hf-cyber-background {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    background-color: var(--dark-bg);
+    color: var(--txt);
+  }
+
+  #cosmic-stars, #cyber-circuits {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  #cyber-circuits {
+    z-index: -0.5;
+  }
+
+  .cyber-overlay-container {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .cyber-overlay-container .grid {
+    position: absolute;
+    inset: 0;
+    background-size: 50px 50px;
+    background-image:
+      linear-gradient(to right, rgba(0,240,255,0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0,240,255,0.05) 1px, transparent 1px);
+  }
+
+  .cyber-overlay-container .scan {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent, rgba(0,240,255,0.015) 50%, transparent);
+    animation: scan-radar 5s linear infinite;
+  }
+
+  @keyframes scan-radar {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+  }
+
+  .cyber-overlay-container .vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, transparent 50%, #000 100%);
+  }
+
+  .hero-logo-wrapper {
+    display: inline-block;
+    position: relative;
+    margin-bottom: 20px;
+    z-index: 10;
+  }
+
+  .hero-logo {
+    width: 180px;
+    border-radius: 24px;
+    mix-blend-mode: screen;
+    filter: drop-shadow(0 0 35px rgba(0,240,255,0.6));
+    animation: float 5s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0); }
+  }
+
+  .cyber-title {
+    font-size: 64px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--txt);
+    text-shadow: 0 0 15px rgba(0,240,255,0.3);
+    margin: 0 auto 10px auto;
+  }
+
+  .cyber-status {
+    font-size: 18px;
+    color: var(--magenta);
+    text-shadow: 0 0 10px rgba(168,85,247,0.5);
+    text-align: center;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+  }
+
+  .holo-pane {
+    position: absolute;
+    border: 1px solid rgba(0,240,255,0.2);
+    border-radius: 12px;
+    background: rgba(0, 240, 255, 0.05);
+    padding: 15px;
+    backdrop-filter: blur(3px);
+    z-index: 5;
+    animation: float 10s ease-in-out infinite;
+  }
+
+  .holo-pane-1 { top: 20%; left: 5%; width: 250px; animation-delay: 0s; }
+  .holo-pane-2 { top: 15%; right: 10%; width: 200px; animation-delay: 2s; }
+  .holo-pane-3 { bottom: 25%; left: 15%; width: 220px; animation-delay: 4s; }
+  .holo-pane-4 { bottom: 10%; right: 15%; width: 260px; animation-delay: 6s; }
+
+  .holo-title {
+    font-size: 12px;
+    color: var(--cyan);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+
+  .holo-desc {
+    font-size: 13px;
+    color: var(--mut);
+    line-height: 1.4;
+  }
+
+  .cyber-metrics {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 50px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .metric {
+    border: 1px solid rgba(0,240,255,0.1);
+    background: rgba(0, 240, 255, 0.05);
+    border-radius: 16px;
+    padding: 15px 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .metric-num {
+    font-weight: bold;
+    font-size: 20px;
+    color: var(--cyan);
+    text-shadow: 0 0 10px rgba(0,240,255,0.5);
+  }
+
+  .metric-label {
+    font-size: 12px;
+    color: var(--mut);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  @media (max-width: 850px) {
+    .top-grid {
+      flex-direction: column;
+      gap: 15px;
+      padding: 15px 10px !important;
+    }
+
+    .nav {
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .nav a {
+      font-size: 11px !important;
+      padding: 8px 10px !important;
+    }
+
+    .hero {
+      padding-top: 30px !important;
+    }
+
+    .hero-central-shield {
+      width: 140px !important;
+      height: 140px !important;
+      margin-bottom: 20px !important;
+    }
+
+    .shield-inner-text {
+      font-size: 24px !important;
+    }
+
+    .cyber-title {
+      font-size: 36px !important;
+      letter-spacing: 2px !important;
+      margin-bottom: 5px !important;
+    }
+
+    .cyber-status {
+      font-size: 13px !important;
+      margin-bottom: 15px !important;
+    }
+
+    .subtitle {
+      font-size: 14px !important;
+      padding: 0 15px;
+      line-height: 1.5;
+    }
+
+    .hero-actions {
+      flex-direction: column;
+      width: 80%;
+      margin: 0 auto 30px auto !important;
+      gap: 12px;
+    }
+
+    .hero-actions .btn {
+      width: 100%;
+    }
+
+    .cyber-metrics {
+      flex-direction: column !important;
+      width: 85%;
+      margin: 20px auto !important;
+      gap: 12px !important;
+    }
+
+    .metric {
+      width: 100% !important;
+      padding: 12px 20px !important;
+    }
+
+    .holo-pane {
+      display: none !important;
+    }
+
+    .cards-3 {
+      grid-template-columns: 1fr !important;
+      gap: 15px !important;
+      padding: 0 15px;
+    }
+
+    .glass-card {
+      margin: 0 15px;
+    }
+
+    .t-row {
+      grid-template-columns: 50px 1fr !important;
+      font-size: 13px;
+    }
+
+    .glass-actions {
+      flex-direction: column;
+    }
+
+    .glass-actions .mini-btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>
+</head>
+
+<body class="hf hf-cyber-background">
+
+<canvas id="cosmic-stars"></canvas>
+<canvas id="cyber-circuits"></canvas>
+
+<div class="cyber-overlay-container bg">
+  <div class="grid"></div>
+  <div class="scan"></div>
+  <div class="vignette"></div>
+</div>
+
+<header class="top">
+  <div class="container top-grid">
+    <a href="#" class="brand">
+      <div class="brand-mark"></div>
+      <span class="brand-name">HYFORCE</span>
+    </a>
+    <nav class="nav">
+      <a href="#ecosystem">Ecosystem</a>
+      <a href="#intel">Status</a>
+      <a href="projects.html" class="nav-cta">Projects <span style="font-size: 10px; opacity: 0.8;">[ LOCKED ]</span></a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero reveal text-center" style="position: relative; z-index: 10;">
+  <div class="container" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+
+    <div class="chipline" style="justify-content: center; margin-bottom: 24px;">
+      <span class="chip" style="color: #00f0ff; text-shadow: 0 0 10px rgba(0,240,255,0.5); letter-spacing: 2px; font-weight: 900;">SYS.STATUS: SECURE</span>
+      <span class="chip" style="border-color: rgba(168,85,247,.45); color: #a855f7;">CORE V1.0.0</span>
+    </div>
+
+    <div class="hero-logo-wrapper">
+      <img src="hyforce-logo.png" class="hero-logo" alt="HYFORCE Logo">
+    </div>
+
+    <h1 class="cyber-title">HYFORCE</h1>
+    <p class="cyber-status">HYFORCE CORE ENVIRONMENT ONLINE</p>
+
+    <p class="subtitle" style="margin: 0 auto 30px auto; font-size: 18px; max-width: 700px; color: var(--txt);">
+      HYFORCE is a desktop software ecosystem focused on performance, control, and visual consistency.
+      <br>
+      Each application is designed for fast execution, low overhead, and a unified dark interface.
+    </p>
+
+    <div class="hero-actions" style="justify-content: center; margin-bottom: 30px;">
+      <a href="#intel" class="btn primary">Open Status</a>
+      <a href="projects.html" class="btn ghost">View Projects</a>
+    </div>
+
+    <div class="cyber-metrics">
+      <div class="metric">
+        <span class="metric-num">&lt; 1ms</span>
+        <span class="metric-label">Internal Response Target</span>
+      </div>
+      <div class="metric" style="border-color: rgba(168,85,247,.3); box-shadow: 0 18px 55px rgba(168,85,247,.15);">
+        <span class="metric-num" style="color: #a855f7; text-shadow: 0 0 16px rgba(168,85,247,.4);">AES-256</span>
+        <span class="metric-label">Encryption Standard</span>
+      </div>
+      <div class="metric">
+        <span class="metric-num">MODULAR</span>
+        <span class="metric-label">Software Architecture</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="holo-pane holo-pane-1">
+    <div class="holo-title">NETWORK NODE: ALPHA</div>
+    <div class="holo-desc">STATUS: OPERATIONAL [PING: <span id="ping-1">--</span>ms]</div>
+    <div class="holo-desc">LOAD: <span id="data-1">--</span>%</div>
+  </div>
+
+  <div class="holo-pane holo-pane-2">
+    <div class="holo-title">DEPLOYMENT WINDOW</div>
+    <div class="holo-desc">TARGET: VARIABLE</div>
+    <div class="holo-desc">CURRENT PHASE: CORE BUILD</div>
+  </div>
+
+  <div class="holo-pane holo-pane-3">
+    <div class="holo-title">CORE INTEGRITY: 100%</div>
+    <div class="holo-desc">MODULES VERIFIED: 3/3</div>
+    <div class="holo-desc">LAST SYNC: <span id="sync-3">--</span>s ago</div>
+  </div>
+
+  <div class="holo-pane holo-pane-4">
+    <div class="holo-title">SYSTEM NOTICE</div>
+    <div class="holo-desc">PREMIUM DESKTOP UTILITIES ARE CURRENTLY IN ACTIVE DEVELOPMENT.</div>
+  </div>
+</section>
+
+<section id="ecosystem" class="platform reveal" style="padding-top: 80px; position: relative; z-index: 10;">
+  <div class="container">
+    <div class="section-head text-center" style="text-align: center; margin-bottom: 40px;">
+      <h2 style="font-size: 32px; letter-spacing: 2px;">THE ECOSYSTEM</h2>
+      <p style="max-width: 600px; margin: 10px auto; color: var(--mut);">
+        HYFORCE is a software platform built around modular desktop tools, shared design logic, and consistent runtime behavior.
+      </p>
+    </div>
+
+    <div class="cards-3">
+      <div class="cardx">
+        <div class="icon i1" style="display:grid; place-items:center; color:#00f0ff; font-weight:bold; font-size: 18px;">⚡</div>
+        <h3 style="color: var(--txt);">Performance-Oriented Build</h3>
+        <p>Each module is designed to reduce unnecessary overhead, improve execution speed, and maintain stable resource usage during intensive tasks.</p>
+      </div>
+
+      <div class="cardx">
+        <div class="icon i2" style="display:grid; place-items:center; color:#a855f7; font-weight:bold; font-size: 18px;">🛡️</div>
+        <h3 style="color: var(--txt);">Unified Interface System</h3>
+        <p>The interface follows one visual language across the full suite. Layout, controls, and feedback remain consistent between applications.</p>
+      </div>
+
+      <div class="cardx">
+        <div class="icon i3" style="display:grid; place-items:center; color:#0088ff; font-weight:bold; font-size: 18px;">🔗</div>
+        <h3 style="color: var(--txt);">Modular Expansion</h3>
+        <p>HYFORCE applications are structured as independent tools that can evolve separately while staying connected through one ecosystem identity.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="intel" class="reveal" style="padding: 100px 0; position: relative; z-index: 10;">
+  <div class="container" style="max-width: 800px;">
+
+    <div class="glass-card">
+      <div class="glass-top">
+        <div class="status-dot"></div>
+        <div class="glass-title" style="color: var(--txt);">PROJECT STATUS</div>
+        <div class="glass-pill" style="border-color: #ff0055; background: rgba(255,0,85,0.1); color: #ff0055; text-shadow: 0 0 10px rgba(255,0,85,0.5);">INTERNAL</div>
+      </div>
+
+      <div class="glass-body">
+        <h2 style="font-size: 26px; margin-bottom: 12px; color: var(--cyan); text-shadow: 0 0 15px rgba(0,240,255,0.3);">Core Build in Progress</h2>
+        <p style="color: var(--mut); margin-bottom: 24px; font-size: 15px;">
+          The first HYFORCE modules are currently under development, testing, and interface refinement.
+          Public release will begin after the core structure reaches stable internal validation.
+        </p>
+        <p style="color: var(--txt); font-weight: bold; margin-bottom: 20px;">NEXT PUBLIC MODULES: PENDING RELEASE.</p>
+
+        <div class="terminal">
+          <div class="t-row">
+            <span class="t-k">SYS></span>
+            <span class="t-v">Authenticating local environment...</span>
+          </div>
+          <div class="t-row">
+            <span class="t-k">SYS></span>
+            <span class="t-v">Loading core dependencies...</span>
+          </div>
+          <div class="t-row">
+            <span class="t-k" style="color: #a855f7;">ENC></span>
+            <span class="t-v" style="color: #a855f7;">Securing internal source modules [████████░░] 75%</span>
+          </div>
+          <div class="t-row" style="margin-top: 10px;">
+            <span class="t-k">SYS></span>
+            <span class="t-v" style="font-weight: bold; color: #00f0ff;">Public deployment status: pending final validation.</span>
+          </div>
+        </div>
+
+        <div class="pulse-panel" style="margin-top: 20px;">
+          <div class="pulse-line"></div>
+          <div class="pulse-line" style="background: linear-gradient(90deg, transparent, rgba(168,85,247,.45), transparent);"></div>
+        </div>
+
+        <div class="glass-actions" style="margin-top: 20px; justify-content: flex-end;">
+          <a href="#" class="mini-btn">Get Updates</a>
+          <a href="projects.html" class="mini-btn accent">Open Project List</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="container foot-grid">
+    <div class="brand small">
+      <div class="brand-mark"></div>
+      <span class="brand-name">HYFORCE</span>
+    </div>
+    <div class="foot-right">
+      <span class="muted" style="font-size: 13px;">© 2026 HYFORCE. ALL RIGHTS RESERVED.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const starsCanvas = document.getElementById("cosmic-stars");
+  const starsCtx = starsCanvas.getContext("2d");
+
+  function resizeStars() {
+    starsCanvas.width = window.innerWidth;
+    starsCanvas.height = window.innerHeight;
+  }
+
+  resizeStars();
+  window.addEventListener("resize", resizeStars);
+
+  let stars = [];
+  const STAR_COUNT = 300;
+
+  for (let i = 0; i < STAR_COUNT; i++) {
+    stars.push({
+      x: (Math.random() - 0.5) * starsCanvas.width * 2,
+      y: (Math.random() - 0.5) * starsCanvas.height * 2,
+      z: Math.random() * starsCanvas.width,
+    });
+  }
+
+  let mouseX = 0;
+  let mouseY = 0;
+
+  window.addEventListener("mousemove", e => {
+    mouseX = (e.clientX - starsCanvas.width / 2) / 30;
+    mouseY = (e.clientY - starsCanvas.height / 2) / 30;
+  });
+
+  function animateStars() {
+    starsCtx.fillStyle = "rgba(5, 7, 13, 0.3)";
+    starsCtx.fillRect(0, 0, starsCanvas.width, starsCanvas.height);
+
+    for (let i = 0; i < stars.length; i++) {
+      let star = stars[i];
+      star.z -= 2.5;
+
+      if (star.z <= 0) {
+        star.z = starsCanvas.width;
+        star.x = (Math.random() - 0.5) * starsCanvas.width * 2;
+        star.y = (Math.random() - 0.5) * starsCanvas.height * 2;
+      }
+
+      let k = 128.0 / star.z;
+      let px = star.x * k + starsCanvas.width / 2 + mouseX;
+      let py = star.y * k + starsCanvas.height / 2 + mouseY;
+
+      if (px >= 0 && px <= starsCanvas.width && py >= 0 && py <= starsCanvas.height) {
+        let size = (1 - star.z / starsCanvas.width) * 3;
+        starsCtx.fillStyle = Math.random() > 0.95 ? "rgba(168,85,247,0.8)" : "rgba(0,240,255,0.9)";
+        starsCtx.beginPath();
+        starsCtx.arc(px, py, size, 0, Math.PI * 2);
+        starsCtx.fill();
+      }
+    }
+
+    requestAnimationFrame(animateStars);
+  }
+
+  animateStars();
+
+  const circuitsCanvas = document.getElementById("cyber-circuits");
+  const circuitsCtx = circuitsCanvas.getContext("2d");
+
+  function resizeCircuits() {
+    circuitsCanvas.width = window.innerWidth;
+    circuitsCanvas.height = window.innerHeight;
+  }
+
+  resizeCircuits();
+  window.addEventListener("resize", resizeCircuits);
+
+  class CircuitLine {
+    constructor() {
+      this.reset();
+    }
+
+    reset() {
+      this.points = [];
+      this.currentX = Math.random() * circuitsCanvas.width;
+      this.currentY = Math.random() * circuitsCanvas.height;
+      this.points.push({ x: this.currentX, y: this.currentY });
+      this.maxPoints = Math.floor(Math.random() * 8) + 3;
+      this.color = Math.random() > 0.7 ? "rgba(168,85,247," : "rgba(0,240,255,";
+      this.alpha = 0;
+      this.thickness = Math.random() > 0.8 ? 2 : 1;
+      this.state = "DRAWING";
+    }
+
+    draw() {
+      if (this.state === "DEAD") {
+        this.reset();
+        return;
+      }
+
+      let finalAlpha = 0;
+
+      if (this.state === "DRAWING") {
+        this.alpha = Math.min(this.alpha + 0.05, 1);
+        finalAlpha = this.alpha;
+      } else if (this.state === "FADING") {
+        this.alpha = Math.max(this.alpha - 0.02, 0);
+        finalAlpha = this.alpha;
+        if (this.alpha === 0) {
+          this.state = "DEAD";
+        }
+      }
+
+      circuitsCtx.lineWidth = this.thickness;
+      circuitsCtx.strokeStyle = this.color + finalAlpha + ")";
+      circuitsCtx.lineCap = "round";
+      circuitsCtx.lineJoin = "round";
+
+      circuitsCtx.beginPath();
+      circuitsCtx.moveTo(this.points[0].x, this.points[0].y);
+
+      for (let i = 1; i < this.points.length; i++) {
+        circuitsCtx.lineTo(this.points[i].x, this.points[i].y);
+      }
+
+      circuitsCtx.stroke();
+    }
+
+    update() {
+      if (this.state === "DRAWING") {
+        if (this.points.length < this.maxPoints) {
+          const stepSize = Math.random() * 50 + 20;
+          const direction = Math.random();
+          let nextX = this.currentX;
+          let nextY = this.currentY;
+
+          if (direction < 0.25) nextX += stepSize;
+          else if (direction < 0.5) nextX -= stepSize;
+          else if (direction < 0.75) nextY += stepSize;
+          else nextY -= stepSize;
+
+          this.currentX = nextX;
+          this.currentY = nextY;
+          this.points.push({ x: nextX, y: nextY });
+        } else {
+          this.state = "FADING";
+        }
+      }
+    }
+  }
+
+  const circuitLines = [];
+  const CIRCUIT_COUNT = 30;
+
+  for (let i = 0; i < CIRCUIT_COUNT; i++) {
+    circuitLines.push(new CircuitLine());
+  }
+
+  function animateCircuits() {
+    circuitsCtx.clearRect(0, 0, circuitsCanvas.width, circuitsCanvas.height);
+
+    for (let line of circuitLines) {
+      line.update();
+      line.draw();
+    }
+
+    requestAnimationFrame(animateCircuits);
+  }
+
+  animateCircuits();
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll(".reveal").forEach(el => {
+    observer.observe(el);
+  });
+
+  function updateHoloData() {
+    const ping1 = document.getElementById("ping-1");
+    const data1 = document.getElementById("data-1");
+    const sync3 = document.getElementById("sync-3");
+
+    if (ping1) ping1.textContent = Math.floor(Math.random() * 15) + 1;
+    if (data1) data1.textContent = Math.floor(Math.random() * 20) + 80;
+    if (sync3) sync3.textContent = Math.floor(Math.random() * 60);
+
+    setTimeout(updateHoloData, Math.random() * 3000 + 1000);
+  }
+
+  updateHoloData();
+</script>
+
+</body>
+</html>

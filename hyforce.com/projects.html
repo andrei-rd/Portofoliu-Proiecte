@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HYFORCE | Projects Access</title>
+  <link rel="icon" type="image/png" href="hyforce-logo.png">
+  <link rel="stylesheet" href="style.main.css">
+
+  <style>
+    :root {
+      --cyan: #00f0ff;
+      --magenta: #a855f7;
+      --dark-bg: #05070c;
+      --txt: #e2e8f0;
+      --mut: #94a3b8;
+      --danger: #ff3b6b;
+      --success: #22c55e;
+    }
+
+    body.hf-login-page {
+      margin: 0;
+      min-height: 100vh;
+      overflow: hidden;
+      background: var(--dark-bg);
+      color: var(--txt);
+      font-family: inherit;
+      position: relative;
+    }
+
+    #cosmic-stars,
+    #cyber-circuits {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: -2;
+    }
+
+    #cyber-circuits {
+      z-index: -1;
+    }
+
+    .cyber-overlay-container {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .cyber-overlay-container .grid {
+      position: absolute;
+      inset: 0;
+      background-size: 50px 50px;
+      background-image:
+        linear-gradient(to right, rgba(0,240,255,0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0,240,255,0.05) 1px, transparent 1px);
+    }
+
+    .cyber-overlay-container .scan {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent, rgba(0,240,255,0.02) 50%, transparent);
+      animation: scan-radar 5s linear infinite;
+    }
+
+    .cyber-overlay-container .vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle, transparent 45%, rgba(0,0,0,0.9) 100%);
+    }
+
+    @keyframes scan-radar {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(100%); }
+    }
+
+    .login-shell {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 16px;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 460px;
+      border: 1px solid rgba(0,240,255,0.16);
+      background: rgba(8, 12, 20, 0.72);
+      backdrop-filter: blur(10px);
+      border-radius: 26px;
+      box-shadow: 0 25px 80px rgba(0,0,0,0.45), 0 0 40px rgba(0,240,255,0.08);
+      overflow: hidden;
+    }
+
+    .login-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 22px;
+      border-bottom: 1px solid rgba(0,240,255,0.10);
+      background: linear-gradient(180deg, rgba(0,240,255,0.05), rgba(0,0,0,0));
+    }
+
+    .login-top-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 16px rgba(0,240,255,0.7);
+    }
+
+    .login-top-title {
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      color: var(--txt);
+      text-transform: uppercase;
+    }
+
+    .login-pill {
+      font-size: 11px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(168,85,247,0.35);
+      color: var(--magenta);
+      background: rgba(168,85,247,0.08);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .login-body {
+      padding: 34px 28px 28px;
+      text-align: center;
+    }
+
+    .hero-logo-wrapper {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .hero-logo {
+      width: 110px;
+      border-radius: 20px;
+      mix-blend-mode: screen;
+      filter: drop-shadow(0 0 30px rgba(0,240,255,0.45));
+      animation: floatLogo 5s ease-in-out infinite;
+    }
+
+    @keyframes floatLogo {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    .login-title {
+      font-size: 34px;
+      letter-spacing: 3px;
+      margin: 0 0 8px;
+      color: var(--txt);
+      text-transform: uppercase;
+      text-shadow: 0 0 18px rgba(0,240,255,0.18);
+    }
+
+    .login-subtitle {
+      margin: 0 auto 26px;
+      max-width: 340px;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--mut);
+    }
+
+    .chipline {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .chip {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,240,255,0.18);
+      background: rgba(0,240,255,0.05);
+      font-size: 11px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      text-align: left;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field-group label {
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--cyan);
+    }
+
+    .field-group input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 14px 15px;
+      border-radius: 14px;
+      border: 1px solid rgba(0,240,255,0.14);
+      background: rgba(255,255,255,0.03);
+      color: var(--txt);
+      outline: none;
+      font-size: 15px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .field-group input::placeholder {
+      color: #64748b;
+    }
+
+    .field-group input:focus {
+      border-color: rgba(0,240,255,0.45);
+      box-shadow: 0 0 0 4px rgba(0,240,255,0.08);
+      background: rgba(255,255,255,0.05);
+    }
+
+    .login-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .btn-login,
+    .btn-back {
+      flex: 1;
+      text-decoration: none;
+      text-align: center;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    }
+
+    .btn-login {
+      border: 1px solid rgba(0,240,255,0.28);
+      background: linear-gradient(135deg, rgba(0,240,255,0.18), rgba(0,240,255,0.05));
+      color: var(--cyan);
+      box-shadow: 0 0 24px rgba(0,240,255,0.08);
+    }
+
+    .btn-login:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px rgba(0,240,255,0.16);
+    }
+
+    .btn-back {
+      border: 1px solid rgba(168,85,247,0.20);
+      background: rgba(168,85,247,0.08);
+      color: #d8b4fe;
+    }
+
+    .btn-back:hover {
+      transform: translateY(-2px);
+    }
+
+    .login-message {
+      min-height: 22px;
+      margin-top: 14px;
+      font-size: 14px;
+      text-align: center;
+      color: var(--mut);
+    }
+
+    .login-message.error {
+      color: var(--danger);
+      text-shadow: 0 0 10px rgba(255,59,107,0.18);
+    }
+
+    .login-message.success {
+      color: var(--success);
+      text-shadow: 0 0 10px rgba(34,197,94,0.18);
+    }
+
+    .login-footer {
+      margin-top: 26px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(0,240,255,0.08);
+      font-size: 12px;
+      color: #64748b;
+      text-align: center;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .holo-pane {
+      position: absolute;
+      border: 1px solid rgba(0,240,255,0.18);
+      border-radius: 12px;
+      background: rgba(0,240,255,0.05);
+      padding: 15px;
+      backdrop-filter: blur(4px);
+      z-index: 1;
+      animation: floatPane 10s ease-in-out infinite;
+      max-width: 240px;
+    }
+
+    .holo-pane-1 { top: 14%; left: 5%; animation-delay: 0s; }
+    .holo-pane-2 { top: 18%; right: 6%; animation-delay: 2s; }
+    .holo-pane-3 { bottom: 14%; left: 10%; animation-delay: 4s; }
+    .holo-pane-4 { bottom: 12%; right: 10%; animation-delay: 6s; }
+
+    @keyframes floatPane {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+      100% { transform: translateY(0); }
+    }
+
+    .holo-title {
+      font-size: 12px;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .holo-desc {
+      font-size: 13px;
+      color: #9fb3d9;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 900px) {
+      .holo-pane {
+        display: none;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .login-card {
+        max-width: 100%;
+      }
+
+      .login-body {
+        padding: 26px 18px 22px;
+      }
+
+      .login-title {
+        font-size: 28px;
+      }
+
+      .login-actions {
+        flex-direction: column;
+      }
+
+      .hero-logo {
+        width: 90px;
+      }
+    }
+  </style>
+</head>
+
+<body class="hf-login-page">
+
+  <canvas id="cosmic-stars"></canvas>
+  <canvas id="cyber-circuits"></canvas>
+
+  <div class="cyber-overlay-container">
+    <div class="grid"></div>
+    <div class="scan"></div>
+    <div class="vignette"></div>
+  </div>
+
+  <div class="holo-pane holo-pane-1">
+    <div class="holo-title">ACCESS NODE</div>
+    <div class="holo-desc">Restricted project gateway. Credential validation required.</div>
+  </div>
+
+  <div class="holo-pane holo-pane-2">
+    <div class="holo-title">CORE STATUS</div>
+    <div class="holo-desc">Protected route active. Session redirect enabled.</div>
+  </div>
+
+  <div class="holo-pane holo-pane-3">
+    <div class="holo-title">AUTH LAYER</div>
+    <div class="holo-desc">User input is checked locally before protected access.</div>
+  </div>
+
+  <div class="holo-pane holo-pane-4">
+    <div class="holo-title">DESTINATION</div>
+    <div class="holo-desc">Approved sessions are redirected to the HYFORCE project space.</div>
+  </div>
+
+  <main class="login-shell">
+    <section class="login-card">
+      <div class="login-top">
+        <div class="login-top-left">
+          <span class="status-dot"></span>
+          <span class="login-top-title">Project Access Control</span>
+        </div>
+        <span class="login-pill">Restricted</span>
+      </div>
+
+      <div class="login-body">
+        <div class="chipline">
+          <span class="chip">Sys.Status: Secure</span>
+          <span class="chip" style="border-color: rgba(168,85,247,0.25); color: var(--magenta);">Gate V1.0</span>
+        </div>
+
+        <div class="hero-logo-wrapper">
+          <img src="hyforce-logo.png" alt="HYFORCE Logo" class="hero-logo">
+        </div>
+
+        <h1 class="login-title">HYFORCE</h1>
+        <p class="login-subtitle">
+          Enter your credentials to access the protected projects environment.
+        </p>
+
+        <form class="login-form" id="loginForm">
+          <div class="field-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" placeholder="Enter username" autocomplete="username" required>
+          </div>
+
+          <div class="field-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter password" autocomplete="current-password" required>
+          </div>
+
+          <div class="login-actions">
+            <button type="submit" class="btn-login">Authenticate</button>
+            <a href="index.html" class="btn-back">Back</a>
+          </div>
+
+          <div id="loginMessage" class="login-message"></div>
+        </form>
+
+        <div class="login-footer">
+          HYFORCE INTERNAL PROJECT ROUTE
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const starsCanvas = document.getElementById("cosmic-stars");
+    const starsCtx = starsCanvas.getContext("2d");
+
+    function resizeStars() {
+      starsCanvas.width = window.innerWidth;
+      starsCanvas.height = window.innerHeight;
+    }
+
+    resizeStars();
+    window.addEventListener("resize", resizeStars);
+
+    const stars = [];
+    const STAR_COUNT = 260;
+
+    for (let i = 0; i < STAR_COUNT; i++) {
+      stars.push({
+        x: (Math.random() - 0.5) * starsCanvas.width * 2,
+        y: (Math.random() - 0.5) * starsCanvas.height * 2,
+        z: Math.random() * starsCanvas.width,
+      });
+    }
+
+    let mouseX = 0;
+    let mouseY = 0;
+
+    window.addEventListener("mousemove", e => {
+      mouseX = (e.clientX - starsCanvas.width / 2) / 30;
+      mouseY = (e.clientY - starsCanvas.height / 2) / 30;
+    });
+
+    function animateStars() {
+      starsCtx.fillStyle = "rgba(5, 7, 13, 0.28)";
+      starsCtx.fillRect(0, 0, starsCanvas.width, starsCanvas.height);
+
+      for (let i = 0; i < stars.length; i++) {
+        const star = stars[i];
+        star.z -= 2.2;
+
+        if (star.z <= 0) {
+          star.z = starsCanvas.width;
+          star.x = (Math.random() - 0.5) * starsCanvas.width * 2;
+          star.y = (Math.random() - 0.5) * starsCanvas.height * 2;
+        }
+
+        const k = 128.0 / star.z;
+        const px = star.x * k + starsCanvas.width / 2 + mouseX;
+        const py = star.y * k + starsCanvas.height / 2 + mouseY;
+
+        if (px >= 0 && px <= starsCanvas.width && py >= 0 && py <= starsCanvas.height) {
+          const size = (1 - star.z / starsCanvas.width) * 3;
+          starsCtx.fillStyle = Math.random() > 0.95
+            ? "rgba(168,85,247,0.8)"
+            : "rgba(0,240,255,0.9)";
+          starsCtx.beginPath();
+          starsCtx.arc(px, py, size, 0, Math.PI * 2);
+          starsCtx.fill();
+        }
+      }
+
+      requestAnimationFrame(animateStars);
+    }
+
+    animateStars();
+
+    const circuitsCanvas = document.getElementById("cyber-circuits");
+    const circuitsCtx = circuitsCanvas.getContext("2d");
+
+    function resizeCircuits() {
+      circuitsCanvas.width = window.innerWidth;
+      circuitsCanvas.height = window.innerHeight;
+    }
+
+    resizeCircuits();
+    window.addEventListener("resize", resizeCircuits);
+
+    class CircuitLine {
+      constructor() {
+        this.reset();
+      }
+
+      reset() {
+        this.points = [];
+        this.currentX = Math.random() * circuitsCanvas.width;
+        this.currentY = Math.random() * circuitsCanvas.height;
+        this.points.push({ x: this.currentX, y: this.currentY });
+        this.maxPoints = Math.floor(Math.random() * 8) + 3;
+        this.alpha = 0;
+        this.color = Math.random() > 0.7 ? "rgba(168,85,247," : "rgba(0,240,255,";
+        this.thickness = Math.random() > 0.8 ? 2 : 1;
+        this.state = "DRAWING";
+      }
+
+      draw() {
+        if (this.state === "DEAD") {
+          this.reset();
+          return;
+        }
+
+        let finalAlpha = 0;
+
+        if (this.state === "DRAWING") {
+          this.alpha = Math.min(this.alpha + 0.05, 1);
+          finalAlpha = this.alpha;
+        } else if (this.state === "FADING") {
+          this.alpha = Math.max(this.alpha - 0.02, 0);
+          finalAlpha = this.alpha;
+          if (this.alpha === 0) this.state = "DEAD";
+        }
+
+        circuitsCtx.lineWidth = this.thickness;
+        circuitsCtx.strokeStyle = this.color + finalAlpha + ")";
+        circuitsCtx.lineCap = "round";
+        circuitsCtx.lineJoin = "round";
+
+        circuitsCtx.beginPath();
+        circuitsCtx.moveTo(this.points[0].x, this.points[0].y);
+
+        for (let i = 1; i < this.points.length; i++) {
+          circuitsCtx.lineTo(this.points[i].x, this.points[i].y);
+        }
+
+        circuitsCtx.stroke();
+      }
+
+      update() {
+        if (this.state === "DRAWING") {
+          if (this.points.length < this.maxPoints) {
+            const stepSize = Math.random() * 50 + 20;
+            const direction = Math.random();
+            let nextX = this.currentX;
+            let nextY = this.currentY;
+
+            if (direction < 0.25) nextX += stepSize;
+            else if (direction < 0.5) nextX -= stepSize;
+            else if (direction < 0.75) nextY += stepSize;
+            else nextY -= stepSize;
+
+            this.currentX = nextX;
+            this.currentY = nextY;
+            this.points.push({ x: nextX, y: nextY });
+          } else {
+            this.state = "FADING";
+          }
+        }
+      }
+    }
+
+    const circuitLines = [];
+    const CIRCUIT_COUNT = 28;
+
+    for (let i = 0; i < CIRCUIT_COUNT; i++) {
+      circuitLines.push(new CircuitLine());
+    }
+
+    function animateCircuits() {
+      circuitsCtx.clearRect(0, 0, circuitsCanvas.width, circuitsCanvas.height);
+
+      for (const line of circuitLines) {
+        line.update();
+        line.draw();
+      }
+
+      requestAnimationFrame(animateCircuits);
+    }
+
+    animateCircuits();
+
+    const loginForm = document.getElementById("loginForm");
+    const usernameInput = document.getElementById("username");
+    const passwordInput = document.getElementById("password");
+    const loginMessage = document.getElementById("loginMessage");
+
+    const VALID_USERNAME = "admin";
+    const VALID_PASSWORD = "hyforce2005";
+    const REDIRECT_URL = "https://andreiroba-hyforce.netlify.app/hyforce";
+
+    loginForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const username = usernameInput.value.trim();
+      const password = passwordInput.value;
+
+      if (username === VALID_USERNAME && password === VALID_PASSWORD) {
+        loginMessage.textContent = "Access granted. Redirecting...";
+        loginMessage.className = "login-message success";
+
+        setTimeout(() => {
+          window.location.href = REDIRECT_URL;
+        }, 900);
+      } else {
+        loginMessage.textContent = "Invalid username or password.";
+        loginMessage.className = "login-message error";
+      }
+    });
+  </script>
+</body>
+</html>
