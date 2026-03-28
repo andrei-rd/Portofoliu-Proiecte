@@ -1,24 +1,41 @@
-# 🚀 Portofoliu Proiecte
+# 👨‍💻 [Andrei Roba] | Engineering the Future
 
-Salut! 👋 Eu sunt Andrei, student la [Numele Facultății/Specializarea], pasionat de dezvoltare software și automatizări. 
+> **Hardware Heart, Software Soul.** > Student @ Faculty of Electrical Engineering and Computer Science (IESC), Transilvania University of Brașov.
 
-Acest repository conține o colecție de proiecte personale și teme/laboratoare din timpul facultății, structurate pe foldere. Fiecare proiect are propriul său fișier `README.md` cu instrucțiuni detaliate de instalare și utilizare.
+Welcome to my digital workshop. This repository serves as a curated gallery of my journey through software development, automation, and embedded systems—from university labs to late-night passion projects.
 
 ---
 
-## 📂 Cuprins Proiecte
+## 🛠️ Tech Stack & Arsenal
+* **Languages:** Python, C++, JavaScript (Node.js)
+* **Hardware:** Arduino, ESP32, I2C/SPI Protocols, Sensors & Actuators
+* **Frameworks/Tools:** PyQt/Tkinter, PlatformIO, Git, yt-dlp, AI/ML Integration
 
-| Nume Proiect | Descriere Scurtă | Tehnologii Folosite |
+---
+
+## 📂 Project Showcase
+
+| Project Name | Brief Overview | Tech Stack |
 | :--- | :--- | :--- |
-| [**HyForce YT Downloader**](./HyForce-YT-Downloader) | O aplicație desktop retro (2015 style) pentru descărcarea rapidă de videoclipuri și playlist-uri de pe YouTube. | Python, yt-dlp, Tkinter/PyQt (pune tu libraria UI) |
-| [**Hy-Splitter AI**](./Hy-Splitter-AI) | (Aici scrii o scurtă descriere a proiectului. Ex: Un tool bazat pe AI care face x și y.) | Python, (alte librării folosite) |
-| [Statie Meteo Interactiva](./Statie%20Meteo) | Stație meteo smart cu Arduino. Citește date de mediu, are afișaj OLED cu animații dinamice și dashboard live pe Serial Monitor. | C++, Arduino, PlatformIO, I2C |
+| [**HyForce YT Downloader**](./HyForce-YT-Downloader) | A nostalgic, **2015-style retro desktop app** built for power-users to batch-download YouTube playlists and 4K videos with zero friction. | `Python`, `yt-dlp`, `CustomTkinter` |
+| [**Hy-Splitter AI**](./Hy-Splitter-AI) | An intelligent data/media processing tool utilizing **Neural Networks** to isolate, split, and categorize complex inputs with surgical precision. | `Python`, `TensorFlow/PyTorch`, `NumPy` |
+| [**Smart Weather Node**](./Statie%20Meteo) | An interactive meteorological station. Features real-time atmospheric telemetry, dynamic OLED animations, and a live serial dashboard. | `C++`, `Arduino`, `PlatformIO`, `I2C` |
+
 ---
 
-## 🌐 Website Personal / CV
-Mai multe detalii despre mine, experiența mea și alte proiecte puteți găsi pe website-ul meu personal: 
-👉 **[andrei-rd.github.io](https://andrei-rd.github.io)** *(Asigură-te că pui link-ul corect aici după ce faci site-ul)*
+## 🌐 Digital Footprint
+I don't just write code; I build solutions. You can find my full CV, technical blog, and an interactive portfolio on my website:
 
-## 📫 Cum mă poți contacta
-* **Email:** [adresa.ta@email.com](mailto:adresa.ta@email.com)
-* **LinkedIn:** [Profilul tău de LinkedIn](https://linkedin.com/in/profilul-tau)
+👉 **[andrei-rd.github.io](https://andrei-rd.github.io)**
+
+---
+
+## 📫 Let's Connect
+Whether it's a collaboration, a technical question, or just to talk about the latest in automation—my inbox is always open.
+
+* **Email:** [andrei.roba@student.unitbv.ro](mailto:andrei.roba@student.unitbv.ro)
+* **LinkedIn:** [/in/andrei-roba-](https://www.linkedin.com/in/andrei-roba-)
+* **Status:** `Available for internships and innovative collaborations.`
+
+---
+*Built with ☕ and ⚡ in Brașov.*
