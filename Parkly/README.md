@@ -10,11 +10,11 @@
 
 ## 📂 Repository Structure & Modules
 
-### 1. [📱 Parkly App](./app)
+### 1. [📱 Parkly App](./Parkly-app/)
 The flagship consumer application. It acts as the "Airbnb for parking spaces," allowing automated, location-based spot matching, reservation routing, and frictionless digital transactions.
 * **Advanced Features:** Secure Phone OTP/Google Auth, live dynamic map navigation (Waze/Google Maps integration), and photo-verified dispute/incident management.
 
-### 2. [📊 Admin Dashboard](./admin-dashboard)
+### 2. [📊 Admin Dashboard](./Parkly-admindashboard)
 The enterprise command center. Designed for full-scale operational oversight, platform health tracking, and precise financial auditing.
 * **Advanced Features:** Live Asset Monitors, automated **Low-Rating Audits** (auto-suspends poor spots), Cryptographic Audit Logging, and a Romanian-compliant fiscal PDF engine (**CIF: RO48291022**).
 
