@@ -1,0 +1,10 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // PERMITEM ACCESUL PUBLIC (Citire și Scriere)
+    // Deoarece am scos login-ul din Admin Dashboard, trebuie să lăsăm regulile deschise pentru a funcționa Chat-ul și pozele.
+    match /{allPaths=**} {
+      allow read, write: if true;
+    }
+  }
+}

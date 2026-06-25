@@ -1,0 +1,42 @@
+name: parkly
+description: "Parcheaza repede si ieftin"
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  firebase_core: ^4.7.0
+  cloud_firestore: ^6.3.0
+  firebase_auth: ^6.4.0
+  firebase_analytics: ^12.3.0
+  firebase_crashlytics: ^5.2.0
+  vector_math: ^2.1.4
+  intl: ^0.19.0
+  provider: ^6.1.2
+  pdf: ^3.11.1
+  printing: ^5.13.2
+  fl_chart: ^0.69.0
+  google_maps_flutter: ^2.10.0
+  http: ^1.2.2
+  cloud_functions: ^6.2.0
+  googleapis_auth: ^1.6.0
+  firebase_storage: ^13.3.0
+  image_picker: ^1.2.2
+  url_launcher: ^6.3.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true

@@ -1,0 +1,114 @@
+image: ghcr.io/cirruslabs/flutter:stable
+
+stages:
+  - validate
+  - test
+  - build
+
+variables:
+  FLUTTER_VERSION: stable
+  PUB_CACHE: "$CI_PROJECT_DIR/.pub-cache"
+  # Optimizari pentru Gradle in CI
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.jvmargs='-Xmx2g'"
+
+cache:
+  key: "$CI_COMMIT_REF_SLUG"
+  paths:
+    - .pub-cache/
+    - .dart_tool/
+    - .flutter-plugins
+    - .flutter-plugins-dependencies
+
+# ──────────────────────────────────────────────
+# STAGE 1 — Validate
+# ──────────────────────────────────────────────
+
+get_dependencies:
+  stage: validate
+  script:
+    - flutter pub get
+  artifacts:
+    paths:
+      - .pub-cache/
+      - .dart_tool/
+    expire_in: 1 hour
+
+analyze:
+  stage: validate
+  needs: [get_dependencies]
+  script:
+    - flutter analyze --no-fatal-infos
+  allow_failure: false
+
+format_check:
+  stage: validate
+  needs: [get_dependencies]
+  script:
+    - dart format --output=none --set-exit-if-changed .
+  allow_failure: true
+
+# ──────────────────────────────────────────────
+# STAGE 2 — Test
+# ──────────────────────────────────────────────
+
+unit_tests:
+  stage: test
+  needs: [analyze]
+  script:
+    - flutter test --coverage
+  coverage: '/lines\s*:\s*(\d+\.\d+)%/'
+  artifacts:
+    when: always
+    reports:
+      junit: build/test-results.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage/lcov.info
+    paths:
+      - coverage/
+    expire_in: 7 days
+
+# ──────────────────────────────────────────────
+# STAGE 3 — Build
+# ──────────────────────────────────────────────
+
+build_apk:
+  stage: build
+  needs:
+    - job: unit_tests
+      optional: true
+  before_script:
+    - |
+      if [ -n "$GOOGLE_SERVICES_JSON" ] && [ -f "$GOOGLE_SERVICES_JSON" ]; then
+        cp "$GOOGLE_SERVICES_JSON" android/app/google-services.json
+      else
+        echo "Warning: GOOGLE_SERVICES_JSON not found. Skipping copy."
+      fi
+  script:
+    # Dezactivam tree-shake-icons pentru siguranta pachetelor de iconite
+    - flutter build apk --release --no-tree-shake-icons
+  artifacts:
+    name: "parkly-android-$CI_COMMIT_SHORT_SHA"
+    paths:
+      - build/app/outputs/flutter-apk/app-release.apk
+    expire_in: 30 days
+  only:
+    - master
+    - main
+    - merge_requests
+
+build_web:
+  stage: build
+  needs:
+    - job: unit_tests
+      optional: true
+  script:
+    - flutter build web --release
+  artifacts:
+    name: "parkly-web-$CI_COMMIT_SHORT_SHA"
+    paths:
+      - build/web/
+    expire_in: 30 days
+  only:
+    - master
+    - main
