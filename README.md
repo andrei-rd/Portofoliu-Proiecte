@@ -15,6 +15,7 @@ I am a developer driven by the synergy between hardware and software, focusing o
 
 | Project | Description | Tech Stack | Status |
 | :--- | :--- | :--- | :--- |
+| [**🅿️ Parkly Ecosystem**](./Parkly) | **Smart Urban Mobility Platform:** An enterprise-grade, peer-to-peer parking marketplace. Features a consumer mobile application and a real-time command & control admin dashboard. | `Flutter` `Dart` `Firebase` `Cloud Functions` | 🟢 Production Ready |
 | [**HyForce YT Downloader**](./HyForce-YT-Downloader) | A "Neo-Retro" desktop utility (2015 style UI) for high-speed video/playlist extraction. | `Python` `yt-dlp` `CustomTkinter` | 🟢 Stable |
 | [**Hy-Splitter AI**](./Hy-Splitter-AI) | Intelligent audio source separation tool. Splits tracks into vocals, drums, and bass using deep learning. | `Python` `TensorFlow` `Librosa` | 🟡 Beta |
 | [**Interactive Weather Station**](./Statie%20Meteo) | Smart IoT station featuring dynamic OLED animations and real-time serial telemetry. | `C++` `Arduino` `I2C` `PlatformIO` | 🔵 Completed |
@@ -23,11 +24,12 @@ I am a developer driven by the synergy between hardware and software, focusing o
 
 ## 🛠 Tech Stack
 
+![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white)
+![Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase&logoColor=white)
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white)
 ![Arduino](https://img.shields.io/badge/-Arduino-00979D?style=for-the-badge&logo=Arduino&logoColor=white)
 ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
-![AI/ML](https://img.shields.io/badge/AI%20%26%20Automation-FF6F00?style=for-the-badge&logo=google-cloud&logoColor=white)
 
 ---
 
